@@ -1,4 +1,4 @@
-<h1 align="center">Permission System - PermSystem</h1>
+<h1 align="center">Spigot/Bukkit Permission System - PermSystem</h1>
 <p align="center">
     <a href="https://github.com/CrazyCraftLand/PermissionSystem-Spigot">
         <img src="https://img.shields.io/badge/version-1.0-blue.svg" alt="Changelog" />

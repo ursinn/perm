@@ -24,7 +24,7 @@ public class PermUtils {
 			checkUserPerm_MySQL();
 			checkGroup_MySQL();
 		} else {
-			System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // FIXME:
+			System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // XXX:
 																				// UPDATE
 																				// MySQL
 																				// Alternativ
@@ -130,7 +130,7 @@ public class PermUtils {
 							"ERROR!!! - PlayerAPI.getGroup() Exeption - Contact the developer for more informations!");
 				}
 			} else {
-				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // FIXME:
+				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // XXX:
 																					// UPDATE
 																					// MySQL
 																					// Alternativ
@@ -145,7 +145,7 @@ public class PermUtils {
 				Main.getInstance().getMySQL()
 						.update("UPDATE " + Tabel + " SET Group='" + GroupID + "' WHERE UUID='" + uuid + "'");
 			} else {
-				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // FIXME:
+				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // XXX:
 																					// UPDATE
 																					// MySQL
 																					// Alternativ
@@ -164,7 +164,7 @@ public class PermUtils {
 					addSpecialPermission(list.get(i));
 				}
 			} else {
-				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // FIXME:
+				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // XXX:
 																					// UPDATE
 																					// MySQL
 																					// Alternativ
@@ -177,14 +177,14 @@ public class PermUtils {
 				Main.getInstance().getMySQL().update(
 						"INSERT INTO " + Tabel + " (UUID, Permission) VALUES ('" + uuid + "', '" + Permission + "')");
 			} else {
-				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // FIXME:
+				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // XXX:
 																					// UPDATE
 																					// MySQL
 																					// Alternativ
 			}
 		}
 
-		public List<String> getSpecialPermissons() {
+		public List<String> getSpecialPermissions() {
 			List<String> list = new ArrayList<String>();
 			if (MySQL) {
 				String Tabel = Main.getInstance().TabelPrefix + "UserPerms";
@@ -203,7 +203,7 @@ public class PermUtils {
 							"ERROR!!! - PermAPI.getPermissons() Exeption - Contact the developer for more informations!");
 				}
 			} else {
-				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // FIXME:
+				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // XXX:
 																					// UPDATE
 																					// MySQL
 																					// Alternativ
@@ -228,12 +228,17 @@ public class PermUtils {
 							"ERROR!!! - PlayerAPI.getID() Exeption - Contact the developer for more informations!");
 				}
 			} else {
-				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // FIXME:
+				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // XXX:
 																					// UPDATE
 																					// MySQL
 																					// Alternativ
 			}
 			return 0;
+		}
+
+		@Deprecated
+		public void removeSpecialPermission(String Permission) {
+			// FIXME MySQL DEL CODE
 		}
 
 	}
@@ -270,7 +275,7 @@ public class PermUtils {
 							"ERROR!!! - PermAPI.getPermissons() Exeption - Contact the developer for more informations!");
 				}
 			} else {
-				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // FIXME:
+				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // XXX:
 																					// UPDATE
 																					// MySQL
 																					// Alternativ
@@ -297,7 +302,7 @@ public class PermUtils {
 							"ERROR!!! - PermAPI.getPermissons() Exeption - Contact the developer for more informations!");
 				}
 			} else {
-				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // FIXME:
+				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // XXX:
 																					// UPDATE
 																					// MySQL
 																					// Alternativ
@@ -311,7 +316,7 @@ public class PermUtils {
 				Main.getInstance().getMySQL().update("INSERT INTO " + Tabel + " (Group, Permission) VALUES ('" + GroupID
 						+ "', '" + Permission + "')");
 			} else {
-				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // FIXME:
+				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // XXX:
 																					// UPDATE
 																					// MySQL
 																					// Alternativ
@@ -352,7 +357,7 @@ public class PermUtils {
 							"ERROR!!! - PermAPI.getPrefix() Exeption - Contact the developer for more informations!");
 				}
 			} else {
-				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // FIXME:
+				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // XXX:
 																					// UPDATE
 																					// MySQL
 																					// Alternativ
@@ -377,7 +382,7 @@ public class PermUtils {
 							"ERROR!!! - PermAPI.getName() Exeption - Contact the developer for more informations!");
 				}
 			} else {
-				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // FIXME:
+				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // XXX:
 																					// UPDATE
 																					// MySQL
 																					// Alternativ
@@ -400,7 +405,7 @@ public class PermUtils {
 							"ERROR!!! - PermAPI.ExistGroupName() Exeption - Contact the developer for more informations!");
 				}
 			} else {
-				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // FIXME:
+				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // XXX:
 																					// UPDATE
 																					// MySQL
 																					// Alternativ
@@ -428,7 +433,7 @@ public class PermUtils {
 							"ERROR!!! - PermAPI.getGroupID() Exeption - Contact the developer for more informations!");
 				}
 			} else {
-				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // FIXME:
+				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // XXX:
 																					// UPDATE
 																					// MySQL
 																					// Alternativ
@@ -442,7 +447,7 @@ public class PermUtils {
 				Main.getInstance().getMySQL()
 						.update("UPDATE " + Tabel + " SET Prefix='" + prefix + "' WHERE id='" + GroupID + "'");
 			} else {
-				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // FIXME:
+				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // XXX:
 																					// UPDATE
 																					// MySQL
 																					// Alternativ
@@ -459,14 +464,14 @@ public class PermUtils {
 						.update("INSERT INTO " + Tabel + " (Name, Prefix) VALUES ('" + name + "', '" + prefix + "')");
 				return true;
 			} else {
-				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // FIXME:
+				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // XXX:
 																					// UPDATE
 																					// MySQL
 																					// Alternativ
 			}
 			return false;
 		}
-		
+
 		public List<String> getGroups() {
 			List<String> list = new ArrayList<String>();
 			if (MySQL) {
@@ -484,7 +489,38 @@ public class PermUtils {
 							"ERROR!!! - PermAPI.getGroups() Exeption - Contact the developer for more informations!");
 				}
 			} else {
-				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // FIXME:
+				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // XXX:
+																					// UPDATE
+																					// MySQL
+																					// Alternativ
+			}
+			return list;
+		}
+
+		@Deprecated
+		public void DeleteGroup() {
+			// FIXME MySQL DEL CODE
+		}
+
+		public List<String> getUsersGroupList() {
+			List<String> list = new ArrayList<>();
+			if (MySQL) {
+				String Tabel = Main.getInstance().TabelPrefix + "User";
+				ResultSet rs = Main.getInstance().getMySQL()
+						.getResult("SELECT UUID From " + Tabel + " WHERE Group='" + GroupID + "'");
+				try {
+					while (rs.next()) {
+						list.add(rs.getString("UUID"));
+					}
+				} catch (SQLException e) {
+					if (Main.getInstance().Debug) {
+						System.err.println(e.getMessage());
+					}
+					System.err.println(
+							"ERROR!!! - PlayerAPI.getUsersGroupList() Exeption - Contact the developer for more informations!");
+				}
+			} else {
+				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); // XXX:
 																					// UPDATE
 																					// MySQL
 																					// Alternativ

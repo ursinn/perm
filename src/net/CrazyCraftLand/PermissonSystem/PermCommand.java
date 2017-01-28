@@ -1,6 +1,7 @@
 package net.CrazyCraftLand.PermissonSystem;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -24,7 +25,7 @@ public class PermCommand implements CommandExecutor {
 
 	PermUtils permUtils = new PermUtils();
 
-	@SuppressWarnings("unused")
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("perm")) {
@@ -45,14 +46,19 @@ public class PermCommand implements CommandExecutor {
 						sender.sendMessage(" ");
 						sender.sendMessage("§e/perm group info <GroupName> : " + GetTextLang("PermGroupInfoText"));
 						sender.sendMessage("§e/perm group list : " + GetTextLang("PermGroupListText"));
-						sender.sendMessage("§e/perm group add <GroupName> <Prefix> : " + GetTextLang("PermGroupAddText"));
+						sender.sendMessage(
+								"§e/perm group add <GroupName> <Prefix> : " + GetTextLang("PermGroupAddText"));
 						sender.sendMessage("§e/perm group remove <GroupName> : " + GetTextLang("PermGroupRemoveText"));
-						sender.sendMessage("§e/perm group userlist <GroupName> : " + GetTextLang("PermGroupUserlistText"));
+						sender.sendMessage(
+								"§e/perm group userlist <GroupName> : " + GetTextLang("PermGroupUserlistText"));
 						sender.sendMessage(" ");
 						sender.sendMessage("§e/perm user info <Username> : " + GetTextLang("PermUserInfoText"));
-						sender.sendMessage("§e/perm user set group <Username> <GroupName> : " + GetTextLang("PermUserSetGroupText"));
-						sender.sendMessage("§e/perm user addperm <Username> <Permission> : " + GetTextLang("PermUserAddpermText"));
-						sender.sendMessage("§e/perm user remperm <Username> <Permission> : " + GetTextLang("PermUserRenpermText"));
+						sender.sendMessage("§e/perm user set group <Username> <GroupName> : "
+								+ GetTextLang("PermUserSetGroupText"));
+						sender.sendMessage(
+								"§e/perm user addperm <Username> <Permission> : " + GetTextLang("PermUserAddpermText"));
+						sender.sendMessage(
+								"§e/perm user remperm <Username> <Permission> : " + GetTextLang("PermUserRenpermText"));
 						sender.sendMessage(" ");
 						sender.sendMessage("§e/perm settings info : " + GetTextLang("PermSettingsInfoText"));
 						sender.sendMessage("§e/perm settings console : " + GetTextLang("PermSettingsConsoleText"));
@@ -74,8 +80,8 @@ public class PermCommand implements CommandExecutor {
 							PermAPI permAPI = permUtils.PermAPI();
 							List<String> list = permAPI.getGroups();
 							sender.sendMessage("§a-§b-§c-§d-§e-");
-							if(list.size() != 0) {
-								for(String s : list) {
+							if (!list.isEmpty()) {
+								for (String s : list) {
 									sender.sendMessage("§e" + s);
 								}
 							} else {
@@ -132,13 +138,28 @@ public class PermCommand implements CommandExecutor {
 							String GroupName = args[2];
 							PermAPI permAPI = permUtils.PermAPI();
 							PermAPI permAPI2 = permUtils.PermAPI(permAPI.getGroupID(GroupName));
-							// TODO
+							permAPI2.DeleteGroup();
+							sender.sendMessage(GetTextLang("GroupDeletet_PermGroupRemove"));
 						} else if (args[1].equalsIgnoreCase("userlist")) {
 							/* /perm group userlist <GroupName> */
 							String GroupName = args[2];
 							PermAPI permAPI = permUtils.PermAPI();
-							PermAPI permAPI2 = permUtils.PermAPI(permAPI.getGroupID(GroupName));
-							// TODO
+							if (permAPI.ExistGroupName(GroupName)) {
+								PermAPI permAPI2 = permUtils.PermAPI(permAPI.getGroupID(GroupName));
+								List<String> list = permAPI2.getUsersGroupList();
+								if (!list.isEmpty()) {
+									sender.sendMessage("§a-§b-§c-§d-§e-");
+									for (String s : list) {
+										UUID uuid = UUID.fromString(s);
+										sender.sendMessage("§e" + Bukkit.getPlayer(uuid).getName());
+									}
+									sender.sendMessage("§a-§b-§c-§d-§e-");
+								} else {
+									sender.sendMessage(GetTextLang("NoUserinGroup_PermGroupUserlist"));
+								}
+							} else {
+								sender.sendMessage(GetTextLang("GroupExistNot_PermGroupUserlist"));
+							}
 						} else {
 							sender.sendMessage("§c/perm");
 						}
@@ -177,7 +198,7 @@ public class PermCommand implements CommandExecutor {
 							String Permission = args[3];
 							Player t = Bukkit.getPlayer(Username);
 							PlayerAPI playerAPI = permUtils.PlayerAPI(t.getUniqueId());
-							// TODO
+							playerAPI.removeSpecialPermission(Permission);
 						} else {
 							sender.sendMessage("§c/perm");
 						}
@@ -243,94 +264,109 @@ public class PermCommand implements CommandExecutor {
 	private String GetTextLang(String string) {
 		String s = "";
 		boolean de_DE = false;
-		if(Language.Language_Prefix == "de_DE")
+		if (Language.Language_Prefix == "de_DE")
 			de_DE = true;
-		
-		/* --- */ //TODO
-		
+
+		/* --- */ // XXX Translation Commands
+
 		if (string == "HelpText") {
-			if(de_DE)
+			if (de_DE)
 				s = "Für Hilfe: /perm help";
 			else
 				s = "For Help: /perm help";
 		} else if (string == "PermText") {
 			if (de_DE)
-				s = "";
+				s = "Hauptbehfel des Permission Systems";
 			else
 				s = "";
 		} else if (string == "PermHelpText") {
 			if (de_DE)
-				s = "";
+				s = "Zeigt Alle Behfele des Permission Systems";
 			else
 				s = "";
 		} else if (string == "PermInfoText") {
 			if (de_DE)
-				s = "";
+				s = "Zeigt Infos über das Permission System";
 			else
 				s = "";
 		} else if (string == "PermGroupInfoText") {
 			if (de_DE)
-				s = "";
+				s = "Zeigt Infos über die Gruppe <GroupName>";
 			else
 				s = "";
 		} else if (string == "PermGroupListText") {
 			if (de_DE)
-				s = "";
+				s = "Zeigt Alle Gruppen";
 			else
 				s = "";
 		} else if (string == "PermGroupAddText") {
 			if (de_DE)
-				s = "";
+				s = "Füght die Gruppe <GroupName> Hinzuh";
 			else
 				s = "";
 		} else if (string == "PermGroupRemoveText") {
 			if (de_DE)
-				s = "";
+				s = "Entfernt die Gruppe <GroupName>";
 			else
 				s = "";
 		} else if (string == "PermGroupUserlistText") {
 			if (de_DE)
-				s = "";
+				s = "Zeigt Alle User der Gruppe <GroupName>";
 			else
 				s = "";
 		} else if (string == "PermUserInfoText") {
 			if (de_DE)
-				s = "";
+				s = "Zeigt Infos über den User <Username>";
 			else
 				s = "";
 		} else if (string == "PermUserSetGroupText") {
 			if (de_DE)
-				s = "";
+				s = "Setzt den Spieler <Username> in die Gruppe <GroupName>";
 			else
 				s = "";
 		} else if (string == "PermUserAddpermText") {
 			if (de_DE)
-				s = "";
+				s = "Füght dem User <Username> Speziel Rechte Hinzuh";
 			else
 				s = "";
 		} else if (string == "PermUserRenpermText") {
 			if (de_DE)
-				s = "";
+				s = "Entfenrt dem User <Username> Speziele Rechte";
 			else
 				s = "";
 		} else if (string == "PermSettingsInfoText") {
 			if (de_DE)
-				s = "";
+				s = "Zeigt die Einstellungen";
 			else
 				s = "";
 		} else if (string == "PermSettingsConsoleText") {
 			if (de_DE)
-				s = "";
+				s = "Ändert den ConsoleOnly Modus";
 			else
 				s = "";
 		} else if (string == "NonGroupExist_PermGroupList") {
 			if (de_DE)
-				s = "";
+				s = Main.getInstance().Prefix + "§cEs gibt noch Keine Gruppen!";
 			else
 				s = "";
 		} else if (string == "PermissionAdded_PermUserAddperm") {
 			if (de_DE)
+				s = Main.getInstance().Prefix + "§aPermission dem Spieler Erfolgreich Hinzugefügt!";
+			else
 				s = "";
+		} else if (string == "GroupDeletet_PermGroupRemove") {
+			if (de_DE)
+				s = Main.getInstance().Prefix + "§aGruppe Erfolgreich Gelöscht!";
+			else
+				s = "";
+		} else if (string == "NoUserinGroup_PermGroupUserlist") {
+			if (de_DE)
+				s = Main.getInstance().Prefix + "§cIn dieser Gruppe ist Kein User!";
+			else
+				s = "";
+		} else if (string == "GroupExistNot_PermGroupUserlist") {
+			if (de_DE)
+				s = Main.getInstance().Prefix + "§cDiese Gruppe Exestiert nicht!";
 			else
 				s = "";
 		}

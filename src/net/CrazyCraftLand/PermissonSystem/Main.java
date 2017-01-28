@@ -109,7 +109,7 @@ public class Main extends JavaPlugin {
 	 * @param b
 	 */
 	public void updateConsoleOnly(boolean b) {
-		// TODO
+		// TODO Main:updateConsoleOnly Settings
 		ConsoleOnly = b;
 		if (b) {
 			//

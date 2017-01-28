@@ -14,6 +14,7 @@ import org.bukkit.command.CommandSender;
  */
 public class PermCommand implements CommandExecutor {
 
+	@SuppressWarnings("unused")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("perm")) {
@@ -85,12 +86,15 @@ public class PermCommand implements CommandExecutor {
 					if (args[0].equalsIgnoreCase("group")) {
 						if (args[1].equalsIgnoreCase("info")) {
 							/* /perm group info <GroupName> */
+							String GroupName = args[2];
 							//TODO
 						} else if (args[1].equalsIgnoreCase("remove")) {
 							/* /perm group remove <GroupName> */
+							String GroupName = args[2];
 							//TODO 
 						} else if (args[1].equalsIgnoreCase("userlist")) {
 							/* /perm group userlist <GroupName> */
+							String GroupName = args[2];
 							//TODO
 						} else {
 							sender.sendMessage("§c/perm");
@@ -98,6 +102,7 @@ public class PermCommand implements CommandExecutor {
 					} else if (args[0].equalsIgnoreCase("user")) {
 						if (args[1].equalsIgnoreCase("info")) {
 							/* /perm user info <Username> */
+							String Username = args[2];
 							//TODO
 						} else {
 							sender.sendMessage("§c/perm");
@@ -109,9 +114,13 @@ public class PermCommand implements CommandExecutor {
 					if (args[0].equalsIgnoreCase("user")) {
 						if (args[1].equalsIgnoreCase("addperm")) {
 							/* /perm user addperm <Username> <Permission> */
+							String Username = args[2];
+							String Permission = args[3];
 							//TODO
 						} else if (args[1].equalsIgnoreCase("remperm")) {
 							/* /perm user remperm <Username> <Permission> */
+							String Username = args[2];
+							String Permission = args[3];
 							//TODO
 						} else {
 							sender.sendMessage("§c/perm");
@@ -119,6 +128,8 @@ public class PermCommand implements CommandExecutor {
 					} else if (args[0].equalsIgnoreCase("group")) {
 						if (args[1].equalsIgnoreCase("add")) {
 							/* /perm group add <GroupName> <Prefix> */
+							String GroupName = args[2];
+							String Prefix = args[3];
 							//TODO
 						} else {
 							sender.sendMessage("§c/perm");
@@ -131,6 +142,8 @@ public class PermCommand implements CommandExecutor {
 						if (args[1].equalsIgnoreCase("set")) {
 							if (args[2].equalsIgnoreCase("group")) {
 								/* /perm user set group <Username> <GroupName> */
+								String Username = args[3];
+								String GroupName = args[4];
 								//TODO
 							} else {
 								sender.sendMessage("§c/perm");

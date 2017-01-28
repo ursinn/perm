@@ -1,8 +1,13 @@
 package net.CrazyCraftLand.PermissonSystem;
 
+import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
+
+import net.CrazyCraftLand.PermissonSystem.PermUtils.PermAPI;
+import net.CrazyCraftLand.PermissonSystem.PermUtils.PlayerAPI;
 
 /**
  * 
@@ -14,6 +19,8 @@ import org.bukkit.command.CommandSender;
  */
 public class PermCommand implements CommandExecutor {
 
+	PermUtils permUtils = new PermUtils();
+	
 	@SuppressWarnings("unused")
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -65,6 +72,7 @@ public class PermCommand implements CommandExecutor {
 					if (args[0].equalsIgnoreCase("group")) {
 						if (args[1].equalsIgnoreCase("list")) {
 							/* /perm group list */
+							PermAPI permAPI = permUtils.PermAPI();
 							//TODO
 						} else {
 							sender.sendMessage("§c/perm");
@@ -72,10 +80,26 @@ public class PermCommand implements CommandExecutor {
 					} if (args[0].equalsIgnoreCase("settings")) {
 						if (args[1].equalsIgnoreCase("info")) {
 							/* /perm settings info */
-							//TODO 
+							String Type = "§cFalse";
+							if(Main.getInstance().ConsoleOnly) {
+								Type = "§aTrue";
+							}
+							sender.sendMessage("§a-§b-§c-§d-§e-");
+							sender.sendMessage("§eConsole Only: " + Type);
+							sender.sendMessage("§a-§b-§c-§d-§e-");
 						} else if (args[1].equalsIgnoreCase("console")) {
 							/* /perm settings console */
-							//TODO 
+							if (Main.getInstance().ConsoleOnly) {
+								Main.getInstance().updateConsoleOnly(false);
+								sender.sendMessage("§a-§b-§c-§d-§e-");
+								sender.sendMessage("§eConsole Only §Disabled");
+								sender.sendMessage("§a-§b-§c-§d-§e-");
+							} else {
+								Main.getInstance().updateConsoleOnly(true);
+								sender.sendMessage("§a-§b-§c-§d-§e-");
+								sender.sendMessage("§eConsole Only §aEnabled");
+								sender.sendMessage("§a-§b-§c-§d-§e-");
+							}
 						} else {
 							sender.sendMessage("§c/perm");
 						}
@@ -87,14 +111,24 @@ public class PermCommand implements CommandExecutor {
 						if (args[1].equalsIgnoreCase("info")) {
 							/* /perm group info <GroupName> */
 							String GroupName = args[2];
-							//TODO
+							PermAPI permAPI = permUtils.PermAPI();
+							PermAPI permAPI2 = permUtils.PermAPI(permAPI.getGroupID(GroupName));
+							sender.sendMessage("§a-§b-§c-§d-§e-");
+							sender.sendMessage("§eName: §6" + GroupName);
+							sender.sendMessage("§eID: §6" + permAPI.getGroupID(GroupName));
+							sender.sendMessage("§ePrefix: §6" + permAPI2.getPrefix());
+							sender.sendMessage("§a-§b-§c-§d-§e-");
 						} else if (args[1].equalsIgnoreCase("remove")) {
 							/* /perm group remove <GroupName> */
 							String GroupName = args[2];
-							//TODO 
+							PermAPI permAPI = permUtils.PermAPI();
+							PermAPI permAPI2 = permUtils.PermAPI(permAPI.getGroupID(GroupName));
+							//TODO
 						} else if (args[1].equalsIgnoreCase("userlist")) {
 							/* /perm group userlist <GroupName> */
 							String GroupName = args[2];
+							PermAPI permAPI = permUtils.PermAPI();
+							PermAPI permAPI2 = permUtils.PermAPI(permAPI.getGroupID(GroupName));
 							//TODO
 						} else {
 							sender.sendMessage("§c/perm");
@@ -103,7 +137,15 @@ public class PermCommand implements CommandExecutor {
 						if (args[1].equalsIgnoreCase("info")) {
 							/* /perm user info <Username> */
 							String Username = args[2];
-							//TODO
+							Player t = Bukkit.getPlayer(Username);
+							PlayerAPI playerAPI = permUtils.PlayerAPI(t.getUniqueId());
+							PermAPI permAPI = permUtils.PermAPI(playerAPI.getGroup());
+							sender.sendMessage("§a-§b-§c-§d-§e-");
+							sender.sendMessage("§eUsername: §6" + Username);
+							sender.sendMessage("§eID: §6" + playerAPI.getID());
+							sender.sendMessage("§eGroup ID: §6" + playerAPI.getGroup());
+							sender.sendMessage("§eGroup Name: §6" + permAPI.getName());
+							sender.sendMessage("§a-§b-§c-§d-§e-");
 						} else {
 							sender.sendMessage("§c/perm");
 						}
@@ -116,11 +158,16 @@ public class PermCommand implements CommandExecutor {
 							/* /perm user addperm <Username> <Permission> */
 							String Username = args[2];
 							String Permission = args[3];
-							//TODO
+							Player t = Bukkit.getPlayer(Username);
+							PlayerAPI playerAPI = permUtils.PlayerAPI(t.getUniqueId());
+							playerAPI.addSpecialPermission(Permission);
+							sender.sendMessage("TEXT");//TODO
 						} else if (args[1].equalsIgnoreCase("remperm")) {
 							/* /perm user remperm <Username> <Permission> */
 							String Username = args[2];
 							String Permission = args[3];
+							Player t = Bukkit.getPlayer(Username);
+							PlayerAPI playerAPI = permUtils.PlayerAPI(t.getUniqueId());
 							//TODO
 						} else {
 							sender.sendMessage("§c/perm");
@@ -130,7 +177,12 @@ public class PermCommand implements CommandExecutor {
 							/* /perm group add <GroupName> <Prefix> */
 							String GroupName = args[2];
 							String Prefix = args[3];
-							//TODO
+							PermAPI permAPI = permUtils.PermAPI();
+							if (permAPI.registerGroup(GroupName, Prefix)) {
+								sender.sendMessage(Main.getInstance().Message_GroupAdd);
+							} else {
+								sender.sendMessage(Main.getInstance().Message_GroupAddFAILED);
+							}
 						} else {
 							sender.sendMessage("§c/perm");
 						}
@@ -144,7 +196,16 @@ public class PermCommand implements CommandExecutor {
 								/* /perm user set group <Username> <GroupName> */
 								String Username = args[3];
 								String GroupName = args[4];
-								//TODO
+								Player t = Bukkit.getPlayer(Username);
+								PlayerAPI playerAPI = permUtils.PlayerAPI(t.getUniqueId());
+								PermAPI permAPI = permUtils.PermAPI();
+								if(permAPI.ExistGroupName(GroupName)) {
+									int GroupID = permAPI.getGroupID(GroupName);
+									playerAPI.setGroup(GroupID);
+									sender.sendMessage(Main.getInstance().Message_UserGroupSet);
+								} else {
+									sender.sendMessage(Main.getInstance().Message_UserGroupSetFAILED);
+								}
 							} else {
 								sender.sendMessage("§c/perm");
 							}

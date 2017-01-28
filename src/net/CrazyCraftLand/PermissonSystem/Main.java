@@ -29,6 +29,7 @@ public class Main extends JavaPlugin {
 	public boolean UseMySQL;
 	public boolean NotifyDeveloper;
 	public boolean UseChat;
+	public boolean ConsoleOnly;
 
 	public String MySQL_Host;
 	public String MySQL_Username;
@@ -38,6 +39,11 @@ public class Main extends JavaPlugin {
 
 	public String NoPerm;
 	public String NoConsole;
+	
+	public String Message_GroupAdd;
+	public String Message_GroupAddFAILED;
+	public String Message_UserGroupSet;
+	public String Message_UserGroupSetFAILED;
 
 	public void onEnable() {
 		intsance = this;
@@ -96,6 +102,19 @@ public class Main extends JavaPlugin {
 			for (Player all : Bukkit.getOnlinePlayers()) {
 				all.sendMessage(Message);
 			}
+		}
+	}
+
+	/**
+	 * @param b
+	 */
+	public void updateConsoleOnly(boolean b) {
+		//TODO
+		ConsoleOnly = b;
+		if (b) {
+			//
+		} else {
+			//
 		}
 	}
 

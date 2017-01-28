@@ -173,6 +173,29 @@ public class PermUtils {
 			}
 			return list;
 		}
+		
+		public int getID() {
+			if (MySQL) {
+				String Tabel = Main.getInstance().TabelPrefix + "User";
+				ResultSet rs = Main.getInstance().getMySQL()
+						.getResult("SELECT id From " + Tabel + " WHERE UUID='" + uuid + "'");
+				try {
+					while (rs.next()) {
+						return rs.getInt("id");
+					}
+				} catch (SQLException e) {
+					if (Main.getInstance().Debug) {
+						System.err.println(e.getMessage());
+					}
+					System.err.println(
+							"ERROR!!! - PlayerAPI.getID() Exeption - Contact the developer for more informations!");
+				}
+			} else {
+				System.err.println("Error: Diese Version Unterstützt nur MySQL!"); //FIXME: UPDATE MySQL Alternativ
+			}
+			return 0;
+		}
+		
 	}
 	
 	public class PermAPI {

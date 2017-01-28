@@ -46,6 +46,9 @@ public class JoinListener implements Listener {
 		for (String Perms : permAPI.getGroupPermisonsOrdet()) {
 			attachment.setPermission(Perms, true);
 		}
+		for (String Perms : playerAPI.getSpecialPermissons()) {
+			attachment.setPermission(Perms, true);
+		}
 	}
 
 	/**

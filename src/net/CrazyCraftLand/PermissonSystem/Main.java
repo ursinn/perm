@@ -40,11 +40,13 @@ public class Main extends JavaPlugin {
 	public void onEnable() {
 		intsance = this;
 		Config = new Config();
+		PermUtils permUtils = new PermUtils();
 		Config.setDefaults();
 		Config.load();
 		sendMessage(SendMessageEnum.CONSOLE, Prefix + "§aEnabled!");
 		if (UseMySQL)
 			MySQL.connect();
+		permUtils.createDefaultTabels();
 		Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
 		setCustomPermissibleBaseAll();
 	}

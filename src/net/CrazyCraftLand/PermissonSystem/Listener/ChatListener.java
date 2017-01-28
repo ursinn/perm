@@ -13,6 +13,7 @@ import net.CrazyCraftLand.PermissonSystem.PermUtils.PlayerAPI;
 /**
  * 
  * Permisson System
+ * 
  * @author ursinn (Ursin Filli)
  * @Copyright (c) 2017 Ursin Filli
  * @license CC-BY-SA 4.0 International
@@ -22,7 +23,7 @@ public class ChatListener implements Listener {
 
 	@EventHandler
 	public void onChat(AsyncPlayerChatEvent e) {
-		if(Main.getInstance().UseChat) {
+		if (Main.getInstance().UseChat) {
 			PermUtils permUtils = new PermUtils();
 			PlayerAPI playerAPI = permUtils.PlayerAPI(e.getPlayer().getUniqueId());
 			PermAPI permAPI = permUtils.PermAPI(playerAPI.getGroup());
@@ -30,5 +31,5 @@ public class ChatListener implements Listener {
 			e.setFormat(permAPI.getPrefix() + " §7: §f" + e.getMessage());
 		}
 	}
-	
+
 }

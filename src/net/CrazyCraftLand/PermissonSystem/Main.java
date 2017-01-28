@@ -39,7 +39,7 @@ public class Main extends JavaPlugin {
 
 	public String NoPerm;
 	public String NoConsole;
-	
+
 	public String Message_GroupAdd;
 	public String Message_GroupAddFAILED;
 	public String Message_UserGroupSet;
@@ -87,14 +87,14 @@ public class Main extends JavaPlugin {
 	public static Main getInstance() {
 		return intsance;
 	}
-	
+
 	/**
 	 * @return the mySQL
 	 */
 	public MySQL getMySQL() {
 		return MySQL;
 	}
-	
+
 	public void sendMessage(SendMessageEnum e, String Message) {
 		if (e == SendMessageEnum.CONSOLE) {
 			Bukkit.getConsoleSender().sendMessage(Message);
@@ -109,7 +109,7 @@ public class Main extends JavaPlugin {
 	 * @param b
 	 */
 	public void updateConsoleOnly(boolean b) {
-		//TODO
+		// TODO
 		ConsoleOnly = b;
 		if (b) {
 			//

@@ -25,15 +25,13 @@ public class Config {
 		cfg.addDefault("Debug", false);
 		cfg.addDefault("UseMySQL", false);
 		cfg.addDefault("NotifyDeveloper", true);
+		cfg.addDefault("UseChat", true);
 
 		cfg.addDefault("MySQL.Host", "localhost");
 		cfg.addDefault("MySQL.User", "User");
 		cfg.addDefault("MySQL.Password", "Password");
 		cfg.addDefault("MySQL.DB", "Datenbank");
 		cfg.addDefault("MySQL.Port", "3306");
-
-		cfg.addDefault("Message.NoPerm", "§cDu hast hierzu Keine Berechtigung!");
-		cfg.addDefault("Message.NoConsole", "§cDie Console daf dies nicht tun!");
 
 		cfg.options().copyDefaults(true);
 		save();
@@ -53,15 +51,13 @@ public class Config {
 		Main.getInstance().Debug = cfg.getBoolean("Debug");
 		Main.getInstance().UseMySQL = cfg.getBoolean("UseMySQL");
 		Main.getInstance().NotifyDeveloper = cfg.getBoolean("NotifyDeveloper");
+		Main.getInstance().UseChat = cfg.getBoolean("UseChat");
 
 		Main.getInstance().MySQL_Host = cfg.getString("MySQL.Host");
 		Main.getInstance().MySQL_Username = cfg.getString("MySQL.User");
 		Main.getInstance().MySQL_Password = cfg.getString("MySQL.Password");
 		Main.getInstance().MySQL_Database = cfg.getString("MySQL.DB");
 		Main.getInstance().MySQL_Port = cfg.getString("MySQL.Port");
-
-		Main.getInstance().NoPerm = cfg.getString("Message.NoPerm");
-		Main.getInstance().NoConsole = cfg.getString("Message.NoConsole");
 	}
 
 }

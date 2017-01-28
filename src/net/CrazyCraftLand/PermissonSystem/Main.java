@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import net.CrazyCraftLand.PermissonSystem.Listener.ChatListener;
 import net.CrazyCraftLand.PermissonSystem.Listener.JoinListener;
 
 /**
@@ -27,6 +28,7 @@ public class Main extends JavaPlugin {
 	public boolean Debug;
 	public boolean UseMySQL;
 	public boolean NotifyDeveloper;
+	public boolean UseChat;
 
 	public String MySQL_Host;
 	public String MySQL_Username;
@@ -40,6 +42,7 @@ public class Main extends JavaPlugin {
 	public void onEnable() {
 		intsance = this;
 		Config = new Config();
+		MySQL = new MySQL();
 		PermUtils permUtils = new PermUtils();
 		Config.setDefaults();
 		Config.load();
@@ -48,6 +51,7 @@ public class Main extends JavaPlugin {
 			MySQL.connect();
 		permUtils.createDefaultTabels();
 		Bukkit.getPluginManager().registerEvents(new JoinListener(), this);
+		Bukkit.getPluginManager().registerEvents(new ChatListener(), this);
 		setCustomPermissibleBaseAll();
 	}
 

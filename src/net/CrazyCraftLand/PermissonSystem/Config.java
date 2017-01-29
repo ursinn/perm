@@ -26,6 +26,7 @@ public class Config {
 		cfg.addDefault("UseMySQL", false);
 		cfg.addDefault("NotifyDeveloper", true);
 		cfg.addDefault("UseChat", true);
+		cfg.addDefault("ConsoleOnly", false);
 
 		cfg.addDefault("MySQL.Host", "localhost");
 		cfg.addDefault("MySQL.User", "User");
@@ -52,12 +53,14 @@ public class Config {
 		Main.getInstance().UseMySQL = cfg.getBoolean("UseMySQL");
 		Main.getInstance().NotifyDeveloper = cfg.getBoolean("NotifyDeveloper");
 		Main.getInstance().UseChat = cfg.getBoolean("UseChat");
+		Main.getInstance().ConsoleOnly = cfg.getBoolean("ConsoleOnly");
 
 		Main.getInstance().MySQL_Host = cfg.getString("MySQL.Host");
 		Main.getInstance().MySQL_Username = cfg.getString("MySQL.User");
 		Main.getInstance().MySQL_Password = cfg.getString("MySQL.Password");
 		Main.getInstance().MySQL_Database = cfg.getString("MySQL.DB");
 		Main.getInstance().MySQL_Port = cfg.getString("MySQL.Port");
+
 	}
 
 }

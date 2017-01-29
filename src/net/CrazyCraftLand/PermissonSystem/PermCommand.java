@@ -29,7 +29,7 @@ public class PermCommand implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (cmd.getName().equalsIgnoreCase("perm")) {
-			if (sender.hasPermission("ccl.permission.command")) {
+			if (sender.hasPermission("ccl.permission.command") || sender.hasPermission("ccl.permission.command.*")) {
 				if (args.length == 0) {
 					/* /perm */
 					sender.sendMessage("§a-§b-§c-§d-§e-");
@@ -77,6 +77,12 @@ public class PermCommand implements CommandExecutor {
 					if (args[0].equalsIgnoreCase("group")) {
 						if (args[1].equalsIgnoreCase("list")) {
 							/* /perm group list */
+							if (!sender.hasPermission("ccl.permission.command.group.list")
+									&& !sender.hasPermission("ccl.permission.command.*")
+									&& !sender.hasPermission("ccl.permission.command.group.*")) {
+								sender.sendMessage(Main.getInstance().NoPerm);
+								return true;
+							}
 							PermAPI permAPI = permUtils.PermAPI();
 							List<String> list = permAPI.getGroups();
 							sender.sendMessage("§a-§b-§c-§d-§e-");
@@ -95,6 +101,12 @@ public class PermCommand implements CommandExecutor {
 					if (args[0].equalsIgnoreCase("settings")) {
 						if (args[1].equalsIgnoreCase("info")) {
 							/* /perm settings info */
+							if (!sender.hasPermission("ccl.permission.command.settings.info")
+									&& !sender.hasPermission("ccl.permission.command.*")
+									&& !sender.hasPermission("ccl.permission.command.settings.*")) {
+								sender.sendMessage(Main.getInstance().NoPerm);
+								return true;
+							}
 							String Type = "§cFalse";
 							if (Main.getInstance().ConsoleOnly) {
 								Type = "§aTrue";
@@ -104,6 +116,12 @@ public class PermCommand implements CommandExecutor {
 							sender.sendMessage("§a-§b-§c-§d-§e-");
 						} else if (args[1].equalsIgnoreCase("console")) {
 							/* /perm settings console */
+							if (!sender.hasPermission("ccl.permission.command.settings.console")
+									&& !sender.hasPermission("ccl.permission.command.*")
+									&& !sender.hasPermission("ccl.permission.command.settings.*")) {
+								sender.sendMessage(Main.getInstance().NoPerm);
+								return true;
+							}
 							if (Main.getInstance().ConsoleOnly) {
 								Main.getInstance().updateConsoleOnly(false);
 								sender.sendMessage("§a-§b-§c-§d-§e-");
@@ -125,6 +143,12 @@ public class PermCommand implements CommandExecutor {
 					if (args[0].equalsIgnoreCase("group")) {
 						if (args[1].equalsIgnoreCase("info")) {
 							/* /perm group info <GroupName> */
+							if (!sender.hasPermission("ccl.permission.command.group.info")
+									&& !sender.hasPermission("ccl.permission.command.*")
+									&& !sender.hasPermission("ccl.permission.command.group.*")) {
+								sender.sendMessage(Main.getInstance().NoPerm);
+								return true;
+							}
 							String GroupName = args[2];
 							PermAPI permAPI = permUtils.PermAPI();
 							PermAPI permAPI2 = permUtils.PermAPI(permAPI.getGroupID(GroupName));
@@ -135,6 +159,12 @@ public class PermCommand implements CommandExecutor {
 							sender.sendMessage("§a-§b-§c-§d-§e-");
 						} else if (args[1].equalsIgnoreCase("remove")) {
 							/* /perm group remove <GroupName> */
+							if (!sender.hasPermission("ccl.permission.command.group.remove")
+									&& !sender.hasPermission("ccl.permission.command.*")
+									&& !sender.hasPermission("ccl.permission.command.group.*")) {
+								sender.sendMessage(Main.getInstance().NoPerm);
+								return true;
+							}
 							String GroupName = args[2];
 							PermAPI permAPI = permUtils.PermAPI();
 							PermAPI permAPI2 = permUtils.PermAPI(permAPI.getGroupID(GroupName));
@@ -142,6 +172,12 @@ public class PermCommand implements CommandExecutor {
 							sender.sendMessage(GetTextLang("GroupDeletet_PermGroupRemove"));
 						} else if (args[1].equalsIgnoreCase("userlist")) {
 							/* /perm group userlist <GroupName> */
+							if (!sender.hasPermission("ccl.permission.command.group.userlist")
+									&& !sender.hasPermission("ccl.permission.command.*")
+									&& !sender.hasPermission("ccl.permission.command.group.*")) {
+								sender.sendMessage(Main.getInstance().NoPerm);
+								return true;
+							}
 							String GroupName = args[2];
 							PermAPI permAPI = permUtils.PermAPI();
 							if (permAPI.ExistGroupName(GroupName)) {
@@ -166,6 +202,12 @@ public class PermCommand implements CommandExecutor {
 					} else if (args[0].equalsIgnoreCase("user")) {
 						if (args[1].equalsIgnoreCase("info")) {
 							/* /perm user info <Username> */
+							if (!sender.hasPermission("ccl.permission.command.user.info")
+									&& !sender.hasPermission("ccl.permission.command.*")
+									&& !sender.hasPermission("ccl.permission.command.user.*")) {
+								sender.sendMessage(Main.getInstance().NoPerm);
+								return true;
+							}
 							String Username = args[2];
 							Player t = Bukkit.getPlayer(Username);
 							PlayerAPI playerAPI = permUtils.PlayerAPI(t.getUniqueId());
@@ -186,6 +228,12 @@ public class PermCommand implements CommandExecutor {
 					if (args[0].equalsIgnoreCase("user")) {
 						if (args[1].equalsIgnoreCase("addperm")) {
 							/* /perm user addperm <Username> <Permission> */
+							if (!sender.hasPermission("ccl.permission.command.user.addperm")
+									&& !sender.hasPermission("ccl.permission.command.*")
+									&& !sender.hasPermission("ccl.permission.command.user.*")) {
+								sender.sendMessage(Main.getInstance().NoPerm);
+								return true;
+							}
 							String Username = args[2];
 							String Permission = args[3];
 							Player t = Bukkit.getPlayer(Username);
@@ -194,6 +242,12 @@ public class PermCommand implements CommandExecutor {
 							sender.sendMessage(GetTextLang("PermissionAdded_PermUserAddperm"));
 						} else if (args[1].equalsIgnoreCase("remperm")) {
 							/* /perm user remperm <Username> <Permission> */
+							if (!sender.hasPermission("ccl.permission.command.user.remperm")
+									&& !sender.hasPermission("ccl.permission.command.*")
+									&& !sender.hasPermission("ccl.permission.command.user.*")) {
+								sender.sendMessage(Main.getInstance().NoPerm);
+								return true;
+							}
 							String Username = args[2];
 							String Permission = args[3];
 							Player t = Bukkit.getPlayer(Username);
@@ -205,6 +259,12 @@ public class PermCommand implements CommandExecutor {
 					} else if (args[0].equalsIgnoreCase("group")) {
 						if (args[1].equalsIgnoreCase("add")) {
 							/* /perm group add <GroupName> <Prefix> */
+							if (!sender.hasPermission("ccl.permission.command.group.add")
+									&& !sender.hasPermission("ccl.permission.command.*")
+									&& !sender.hasPermission("ccl.permission.command.group.*")) {
+								sender.sendMessage(Main.getInstance().NoPerm);
+								return true;
+							}
 							String GroupName = args[2];
 							String Prefix = args[3];
 							PermAPI permAPI = permUtils.PermAPI();
@@ -226,6 +286,12 @@ public class PermCommand implements CommandExecutor {
 								/*
 								 * /perm user set group <Username> <GroupName>
 								 */
+								if (!sender.hasPermission("ccl.permission.command.user.setgroup")
+										&& !sender.hasPermission("ccl.permission.command.*")
+										&& !sender.hasPermission("ccl.permission.command.user.*")) {
+									sender.sendMessage(Main.getInstance().NoPerm);
+									return true;
+								}
 								String Username = args[3];
 								String GroupName = args[4];
 								Player t = Bukkit.getPlayer(Username);

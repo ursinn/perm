@@ -109,13 +109,9 @@ public class Main extends JavaPlugin {
 	 * @param b
 	 */
 	public void updateConsoleOnly(boolean b) {
-		// TODO Main:updateConsoleOnly Settings
 		ConsoleOnly = b;
-		if (b) {
-			//
-		} else {
-			//
-		}
+		Config.cfg.set("ConsoleOnly", b);
+		Config.save();
 	}
 
 }
